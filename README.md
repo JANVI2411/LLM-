@@ -105,5 +105,49 @@
        * Data collation: Here our labels should be padded the exact same way as the inputs so that they stay the same size, using -100 as a value so that the corresponding predictions are ignored in the loss computation.
        * Evaluation Metrics: seqeval, this seqeval takes actual label_names, not the labels, so we have to convert the generated label to its corresponding label_name.
        * Model Config: pass id2label and label2id in config
-2) 
+         
+2) Fine-Tuning Masked Language Model:
+   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/3?fw=pt
+   * key Points:
+       * Domain Adaptation: here are a few cases where you’ll want to first fine-tune the language models on your data, before training a task-specific head. For example, if your dataset contains legal contracts or scientific articles, a vanilla Transformer model like BERT will typically treat the domain-specific words in your corpus as rare tokens, and the resulting performance may be less than satisfactory. By fine-tuning the language model on in-domain data you can boost the performance of many downstream tasks, which means you usually only have to do this step once! This process of fine-tuning a pretrained language model on in-domain data is usually called domain adaptation
+       * input: text = "This is a great idea."
+       * label: label= "This is a great idea."
+       * Here input and labels are same, we will mask some words in input randomly using mask token [MASK]: "This is a great [MASK]."
+       * Then we pass this masked input and label to tokenizer, and feed it to the model.
+       * whole_word_masking_data_collator : mask whole words together, not just individual tokens
+       * Evaluation metrics: Perplexity: one way to measure the quality of our language model is to calculate the probabilities it assigns to the next word in all the sentences of the test set. High probabilities indicates that the model is not “surprised” or “perplexed” by the unseen examples, and suggests it has learned the basic patterns of grammar in the language.
+
+3) Summarization:
+   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/5?fw=pt
+   * key Points:
+        * input : ["text"]
+        * label : ["summary"]
+        * just pass input and label in tokenizer
+        * Evaluation metrics: For summarization, one of the most commonly used metrics is the ROUGE score (Recall-Oriented Understudy for Gisting Evaluation)
+        * Recall=  Number of overlapping words / Total number of words in reference summary
+        * Precision=  Number of overlapping words  Total number of words in generated summary
+        * diff types of rouge score: rouge1 is what exaplained above, rouge2 measures the overlap between bigrams (think the overlap of pairs of words), while rougeL and rougeLsum measure the longest matching sequences of words by looking for the longest common substrings in the generated and reference summaries.
+        * DataCollatorForSeq2Seq : the input_ids and attention_mask of the will be padded on the right with a [PAD] token (whose ID is 0). Similarly, the labels will be  padded with -100s, to make sure the padding tokens are ignored by the loss function.
+
+4) Language Model:
+   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/6?fw=pt
+   * key Points:
+        * A scaled-down version of a python code generation model: one-line completions instead of full functions or classes
+        * Here we will use the tokeinzer that we fine-tuned on python dataset
+        * input : ["text"]
+        * No labels
+        * Model config: vocab_size of fine-tuned tokenizer that we are using, fine-tuned tokenizer's bos_token_id, eos_token_id, pad_token_id
+        * we will take head of GPT2 model as we have new config
+        * DataCollatorForLanguageModeling
+          
+5) Extractive question answering:
+   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/6?fw=pt
+   * key Points:
+        * 
+​
+
+​
+ 
+
+
  
