@@ -1,6 +1,6 @@
 # NLP - Hugging Face
 
-# Chapter 5: Datasets
+## Chapter 5: Datasets
 1) How to use datasets library: 
   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter5/3?fw=pt
   * My colab notebook: https://huggingface.co/learn/nlp-course/en/chapter5/3?fw=pt
@@ -27,7 +27,7 @@
        *  pandas explode
 7) Quiz: https://huggingface.co/learn/nlp-course/en/chapter5/8?fw=pt
 
-# Chapter 6: Tokenizer
+## Chapter 6: Tokenizer
 
 1) Train old tokenizer on your custom data:
   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter6/2?fw=pt
@@ -91,4 +91,19 @@
 7) How to build the above 3 tokenizer :
    * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter6/8?fw=pt
 
-# Chapter 7: Main NLP Task
+## Chapter 7: Main NLP Task
+
+1) Token Classification:
+   * Tutorial:
+   * Key Points:
+       * Example: Named entity recognition (NER), Part-of-speech tagging(POS)
+       * dataset feature columns: features: ['ner_tags', 'pos_tags', 'tokens'], Here input columns is either ["ner_tags"] / ["pos_tags"] and label column is ["tokens"].
+       * tokens column: The text is splitted into the words using punctuation or whitespace.
+       * ner_tags column: ner_tag for each token in tokens column, same goes for pos_tags.
+       * Dataset preparation: pass tokens from model tokenizer, get actual tokens(T2) which can be different from the dataset original tokens (T1).
+       * Dataset preparation: we need to update our labels, ner_tags as per new tokens(T1), that we can do using word_ids()
+       * Data collation: Here our labels should be padded the exact same way as the inputs so that they stay the same size, using -100 as a value so that the corresponding predictions are ignored in the loss computation.
+       * Evaluation Metrics: seqeval, this seqeval takes actual label_names, not the labels, so we have to convert the generated label to its corresponding label_name.
+       * Model Config: pass id2label and label2id in config
+2) 
+ 
