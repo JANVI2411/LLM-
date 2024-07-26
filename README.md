@@ -141,10 +141,20 @@
         * DataCollatorForLanguageModeling
           
 5) Extractive question answering:
-   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/6?fw=pt
+   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/7?fw=pt
    * key Points:
         * This involves posing questions about a document and identifying the answers as spans of text in the document itself.
-        * 
+        * Tokenize input and context together using return_overflowing_tokens=True and Truncation=True and return_offsets_mapping=True.
+        * label: start index, end index from input context
+        * Data collator: we padded all the samples to the maximum length we set, there is no data collator to define
+        * Evaluation metrics: Squad
+        * Tricky part: custom preprocessing and custom compute_metrics function
+
+6) Translation:
+   * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/4?fw=pt
+   * key Points:
+        * Evaluation metrics: Bleu Score
+   
 ​
 
 ​
