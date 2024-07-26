@@ -143,6 +143,7 @@
 5) Extractive question answering:
    * Tutorial: https://huggingface.co/learn/nlp-course/en/chapter7/6?fw=pt
    * key Points:
+        * This involves posing questions about a document and identifying the answers as spans of text in the document itself.
         * 
 ​
 
